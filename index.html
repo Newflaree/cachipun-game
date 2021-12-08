@@ -7,10 +7,42 @@
     <meta name="description" content="Pagina para jugar cachipun">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
   </head>
 
   <body>
+    <h1>Cachipun GAME</h1>
+
+    <!-- Nombre del usuario -->
+    <section id='nuevo-juego'>
+      <input id='nombre' type='text' placeholder="Ingrese su nombre">
+      <input id='n-jugadas' type='number' placeholder="¿Cuantas partidas quiere jugar?">
+      <button onClick='newPlayer()'>Jugar</button>
+    </section>
+    <!-- Nombre del usuario -->
+    <!-- --------------------------------------------------------- -->
+    <!-- Juego -->
+    <section class='hidden' id='game'>
+      <div id='current-game'></div>
+      <div id='btns'>
+        <button onClick='playGame(value)' id='piedra' value='1'>Piedra</button>
+        <button onClick='playGame(value)' id='papel' value='2'>Papel</button>
+        <button onClick='playGame(value)' id='tijera' value='3'>Tijera</button>
+      </div>
+    </section>
+    <!-- Juego -->
+    <!-- --------------------------------------------------------- -->
+    <!-- Error -->
+    <section id='error'></section>
+    <!-- Error -->
+    <!-- --------------------------------------------------------- -->
+    <!-- Resultados -->
+    <div id="results">
+    </div>
+    <!-- Resultados -->
+    <!-- --------------------------------------------------------- -->
     <!-- Scripts -->
+    <script src="assets/js/app.js"></script>
     <!-- Scripts -->
   </body>
 </html>
