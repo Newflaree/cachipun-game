@@ -3,6 +3,8 @@ let player = {
   name: '',
   rep: 0
 };
+let totalPlayerScore = 0;
+let totalIaScore = 0;
 let playerScore = 0;
 let iaScore = 0;
 
@@ -22,13 +24,14 @@ const newPlayer = () => {
   // Se asigna la data a la variable global player
   player = datos;
   // Desaparece la caja de registro
-  document.getElementById('game').classList.remove('hidden');
+  document.getElementById('game').classList.toggle('hidden');
   // Aparece la pantalla de juego
-  document.getElementById('nuevo-juego').classList.add('hidden');
+  document.getElementById('nuevo-juego').classList.toggle('hidden');
+  console.log(player);
 }
 
 // Función que inicia el juego
-const playGame = (value) => {
+const playGame = ( value ) => {
   // Se guarda la opcion del jugador
   const move = ownMove( Number(value) );
   // Se genera la jugada de la maquina
@@ -41,7 +44,7 @@ const playGame = (value) => {
   player.rep--;
   if ( player.rep < 0) {
     // Si el numero de partidas llega a 0, desaparece los botones
-    document.getElementById('btns').classList.add('hidden');
+    document.getElementById('btns').classList.toggle('hidden');
     // Muestra la pantalla de resultados
     resultScreen();
   }
@@ -49,6 +52,7 @@ const playGame = (value) => {
 
 // Función que devuelve la elección del jugador
 const ownMove = ( move ) => {
+  // Se declara la variable que contiene la jugada
   let selectedMove;
 
   // Se evalua la opcion seleccionada
@@ -72,6 +76,7 @@ const ownMove = ( move ) => {
 
 // Función que genera la jugada de la máquina
 const machineMove = () => {
+  // Se declara la variable que contiene la jugada
   let selectedMove;
   // Se genera una opcion aleatoria entre 1 y 3
   const mMove = Math.floor(Math.random() * 3) + 1;
@@ -97,18 +102,32 @@ const machineMove = () => {
 
 // Función que muestra el juego actual
 const currentGame = ( player, ia ) => {
+  // Se crea espacio en memoria en div para que muestre nuestro juego actual
   let currentGame = document.getElementById('current-game');
+  // Se llama a función que devuelve al ganador
   let gamePoints = points(player, ia);
+  // Se declara la variable donde se guardarán los colores en cada situación
   let colors;
 
+  // Se evalúa el resultado de la partida actual
   if ( gamePoints == 'empate') {
-    colors = {player:'blue', ia:'blue'};
+    // Se setean los colores para cada jugada
+    colors = {
+      player:'gray', 
+      ia:'gray'
+    };
   }
   if ( gamePoints == 'player') {
-    colors = {player:'green', ia:'red'};
+    colors = {
+      player:'green', 
+      ia:'red'
+    };
   }
   if ( gamePoints == 'ia') {
-    colors = {player:'red', ia:'green'};
+    colors = {
+      player:'red', 
+      ia:'green'
+    };
   }
 
   return currentGame.innerHTML = `
@@ -163,40 +182,70 @@ const points = ( player, ia) => {
 // Función que imprime el resultado en pantalla
 const resultScreen = () => {
   let result = document.getElementById('results');
+  let totalResults = document.getElementById('total-results');
   let colors;
   let msg;
 
   if ( playerScore > iaScore ) {
     msg = `¡Felicitaciones, ${ player.name }. Eres el nuevo campeón!`;
-    colors = {player:'green', ia:'red'};
+    colors = {
+      player:'green', 
+      ia:'red'
+    };
+    totalPlayerScore++;
   }
   if ( playerScore < iaScore ) {
     msg = 'Mejor suerte para la próxima...!'
-    colors = {player:'red', ia:'green'};
+    colors = {
+      player:'red', 
+      ia:'green'
+    };
+    totalIaScore++;
   }
   if ( playerScore == iaScore ) {
     msg = '¡Empate!'
-    colors = {player:'blue', ia:'blue'};
+    colors = {
+      player:'gray', 
+      ia:'gray'
+    };
   }
+
+  totalScore( totalResults );
 
   return result.innerHTML = `
   <h2>${ msg }</h2>
   <p style='color:${colors.player};'>Jugador: ${ playerScore }</p>
   <p style='color:${colors.ia};'>IA: ${ iaScore }</p>
+
+  <button onClick='reset()' >Jugar de Nuevo</button>
+  `;
+}
+
+// Función que imprime el resultado total
+const totalScore = ( tresults ) => {
+  return tresults.innerHTML = `
+    <h2>Humanos: ${ totalPlayerScore }</h2>
+    <h2>Máquinas: ${ totalIaScore }</h2>
   `;
 }
 
 // Función para resetear el contador
 const reset = () => {
-  document.getElementById('results').classList.add('hidden');
-  document.getElementById('game').classList.add('hidden');
-  document.getElementById('nuevo-juego').classList.remove('hidden');
-  document.getElementById('btns').classList.remove('hidden');
+  // Aparece la caja de registro
+  document.getElementById('game').classList.toggle('hidden');
+  // Aparecen los botonos
+  document.getElementById('btns').classList.toggle('hidden');
+  // Desaparece la pantalla de juego la pantalla de juego
+  document.getElementById('nuevo-juego').classList.toggle('hidden');
+  // La caja de resultados de transforma en un string vacío
+  document.getElementById('results').innerHTML = '';
 
+  // Se resetea el valor de player
   player = {
     name: '',
     rep: 0
   }
+  // Se resetean los contadores de puntos
   playerScore = 0;
   iaScore = 0;
 }
