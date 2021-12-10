@@ -14,21 +14,31 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
   </head>
 
-  <body>
-    <h1>Cachipun GAME</h1>
+  <body class='text-center text-white bg-primary'>
+    <h1 class='p-4'>Cachipun GAME</h1>
 
     <!-- Resultados Totales -->
-    <div id='total-results'>
+    <div class='bg-info p-4' id='total-results'>
       <h2>Humanos: 0</h2>
       <h2>Máquinas: 0</h2>
     </div>
     <!-- Resultados Totales -->
     <!-- --------------------------------------------------------- -->
     <!-- Nombre del usuario -->
-    <section id='nuevo-juego'>
-      <input id='nombre' type='text' placeholder="Ingrese su nombre">
-      <input id='n-jugadas' type='number' placeholder="¿Cuantas partidas quiere jugar?">
-      <button onClick='newPlayer()'>Jugar</button>
+    <section class='py-4' id='nuevo-juego'>
+      <div class='container'> 	
+	<div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Nombre</label>
+    <input id='nombre' type="text" class="form-control">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">¿Cuantas veces desea jugar?</label>
+    <input id='n-jugadas' type="number" class="form-control">
+  </div>
+  <button onClick='newPlayer()' class="text-white btn btn-warning">Jugar</button>
+</div>
+      </div>
     </section>
     <!-- Nombre del usuario -->
     <!-- --------------------------------------------------------- -->
