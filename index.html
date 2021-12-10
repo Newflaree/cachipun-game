@@ -28,16 +28,16 @@
     <section class='py-4' id='nuevo-juego'>
       <div class='container'> 	
 	<div>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Nombre</label>
-    <input id='nombre' type="text" class="form-control">
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">¿Cuantas veces desea jugar?</label>
-    <input id='n-jugadas' type="number" class="form-control">
-  </div>
-  <button onClick='newPlayer()' class="text-white btn btn-warning">Jugar</button>
-</div>
+	  <div class="mb-3">
+	    <label for="exampleInputEmail1" class="form-label">Nombre</label>
+	    <input id='nombre' type="text" class="form-control">
+	  </div>
+	  <div class="mb-3">
+	    <label for="exampleInputPassword1" class="form-label">¿Cuantas veces desea jugar?</label>
+	    <input id='n-jugadas' type="number" class="form-control">
+	  </div>
+	  <button onClick='newPlayer()' class="my-3 text-white btn btn-warning">Jugar</button>
+	</div>
       </div>
     </section>
     <!-- Nombre del usuario -->
@@ -45,10 +45,16 @@
     <!-- Juego -->
     <section class='hidden' id='game'>
       <div id='current-game'></div>
-      <div id='btns'>
-        <button onClick='playGame(value)' id='piedra' value='1'>Piedra</button>
-        <button onClick='playGame(value)' id='papel' value='2'>Papel</button>
-        <button onClick='playGame(value)' id='tijera' value='3'>Tijera</button>
+      <div class='my-4' id='btns'>
+        <button onClick='playGame(value)' class='btn btn-secondary mx-3' id='piedra' value='1'>
+	  <i class="fas fa-hand-rock fa-3x"></i>
+	</button>
+        <button onClick='playGame(value)' class='btn btn-success mx-3' id='papel' value='2'>
+	  <i class="fas fa-hand-spock fa-3x"></i>
+	</button>
+        <button onClick='playGame(value)' class='btn btn-danger mx-3' id='tijera' value='3'>
+	  <i class="fas fa-hand-peace fa-3x"></i>
+	</button>
       </div>
     </section>
     <!-- Juego -->
