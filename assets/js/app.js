@@ -24,9 +24,9 @@ const newPlayer = () => {
   // Se asigna la data a la variable global player
   player = datos;
   // Desaparece la caja de registro
-  document.getElementById('game').classList.toggle('hidden');
-  // Aparece la pantalla de juego
   document.getElementById('nuevo-juego').classList.toggle('hidden');
+  // Aparece la pantalla de juego
+  document.getElementById('game').classList.toggle('hidden');
   console.log(player);
 }
 
@@ -118,18 +118,21 @@ const currentGame = ( player, ia ) => {
     };
   }
   if ( gamePoints == 'player') {
+    // Se setean los colores para cada jugada
     colors = {
       player:'green', 
       ia:'red'
     };
   }
   if ( gamePoints == 'ia') {
+    // Se setean los colores para cada jugada
     colors = {
       player:'red', 
       ia:'green'
     };
   }
 
+  // Se retorna la jugada de cada uno
   return currentGame.innerHTML = `
   <h2 style='color:${ colors.player };'>${ player }</h2>
   <h2 style='color:${ colors.ia }'>${ ia }</h2>
@@ -141,11 +144,11 @@ const points = ( player, ia) => {
   let winner;
   // Piedra
   if ( player == 'Piedra' && ia == 'Tijera' ) {
-    playerScore = playerScore + 1; 
+    playerScore++; 
     winner = 'player';
   }
   if ( player == 'Piedra' && ia == 'Papel' ) {
-    iaScore = iaScore + 1;
+    iaScore++;
     winner = 'ia';
   } 
   if ( player == 'Piedra' && ia == 'Piedra' ) {
@@ -153,11 +156,11 @@ const points = ( player, ia) => {
   } 
   // Papel
   if ( player == 'Papel' && ia == 'Piedra' ) {
-    playerScore = playerScore + 1;
+    playerScore++;
     winner = 'player';
   }
   if ( player == 'Papel' && ia == 'Tijera' ) {
-    iaScore = iaScore + 1;
+    iaScore++;
     winner = 'ia';
   } 
   if ( player == 'Papel' && ia == 'Papel' ) {
@@ -165,16 +168,17 @@ const points = ( player, ia) => {
   } 
   // Tijera
   if ( player == 'Tijera' && ia == 'Papel' ) {
-    playerScore = playerScore + 1;
+    playerScore++;
     winner = 'player';
   }
   if ( player == 'Tijera' && ia == 'Piedra' ) {
-    iaScore = iaScore + 1;
+    iaScore++;
     winner = 'ia';
   } 
   if ( player == 'Tijera' && ia == 'Tijera' ) {
     winner = 'empate';
   } 
+  // Se devuelve al ganador
   return winner;
 }
 
@@ -213,11 +217,11 @@ const resultScreen = () => {
   totalScore( totalResults );
 
   return result.innerHTML = `
-  <h2>${ msg }</h2>
-  <p style='color:${colors.player};'>Jugador: ${ playerScore }</p>
-  <p style='color:${colors.ia};'>IA: ${ iaScore }</p>
+    <h2>${ msg }</h2>
+    <p style='color:${colors.player};'>Jugador: ${ playerScore }</p>
+    <p style='color:${colors.ia};'>IA: ${ iaScore }</p>
 
-  <button onClick='reset()' >Jugar de Nuevo</button>
+    <button onClick='reset()' >Jugar de Nuevo</button>
   `;
 }
 
@@ -226,6 +230,7 @@ const totalScore = ( tresults ) => {
   return tresults.innerHTML = `
     <h2>Humanos: ${ totalPlayerScore }</h2>
     <h2>Máquinas: ${ totalIaScore }</h2>
+    <button onClick='resetTotalScore()'>Reiniciar</button>
   `;
 }
 
@@ -248,4 +253,12 @@ const reset = () => {
   // Se resetean los contadores de puntos
   playerScore = 0;
   iaScore = 0;
+}
+
+const resetTotalScore = () => {
+  let totalResults = document.getElementById('total-results');
+  totalPlayerScore = 0;
+  totalIaScore = 0;
+
+  totalScore( totalResults );
 }
