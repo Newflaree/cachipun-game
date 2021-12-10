@@ -27,7 +27,6 @@ const newPlayer = () => {
   document.getElementById('nuevo-juego').classList.toggle('hidden');
   // Aparece la pantalla de juego
   document.getElementById('game').classList.toggle('hidden');
-  console.log(player);
 }
 
 // Función que inicia el juego
@@ -108,6 +107,8 @@ const currentGame = ( player, ia ) => {
   let gamePoints = points(player, ia);
   // Se declara la variable donde se guardarán los colores en cada situación
   let colors;
+  // Se llama a función que nos trae los íconos
+  let icons = getIcons( player, ia );
 
   // Se evalúa el resultado de la partida actual
   if ( gamePoints == 'empate') {
@@ -134,9 +135,46 @@ const currentGame = ( player, ia ) => {
 
   // Se retorna la jugada de cada uno
   return currentGame.innerHTML = `
-  <h2 style='color:${ colors.player };'>${ player }</h2>
-  <h2 style='color:${ colors.ia }'>${ ia }</h2>
+    <h2 class='btn' style='color:${ colors.ia };'>
+      <i class="fas ${ icons.ia }"></i>
+    </h2>
+    <h2 class='' style='color:${ colors.player };'>
+      <i class="fas ${ icons.player }"></i>
+    </h2>
   `;
+}
+
+// Función que devuelve los íconos
+const getIcons = ( player, ia ) => {
+  let playerIcon;
+  let iaIcon;
+
+  // Piedra
+  if ( player == 'Piedra') {
+    playerIcon = 'fas fa-hand-rock fa-3x';
+  }
+  if ( ia == 'Piedra') {
+    iaIcon = 'fas fa-hand-rock fa-flip-both fa-3x';
+  }
+  // Papel
+  if ( player == 'Papel') {
+    playerIcon = 'fas fa-hand-spock fa-3x';
+  }
+  if ( ia == 'Papel') {
+    iaIcon = 'fas fa-hand-spock fa-flip-both fa-3x';
+  }
+  // Tijera
+  if ( player == 'Tijera') {
+    playerIcon = 'fas fa-hand-peace fa-3x';
+  }
+  if ( ia == 'Tijera') {
+    iaIcon = 'fas fa-hand-peace fa-flip-both fa-3x';
+  }
+
+  return {
+    player: playerIcon,
+    ia: iaIcon
+  }
 }
 
 // Función que entrega los puntos
@@ -218,10 +256,12 @@ const resultScreen = () => {
 
   return result.innerHTML = `
     <h2>${ msg }</h2>
-    <p style='color:${colors.player};'>Jugador: ${ playerScore }</p>
-    <p style='color:${colors.ia};'>IA: ${ iaScore }</p>
+    <div class='py-4 bg-light'>
+      <p style='color:${colors.player};'>Jugador: ${ playerScore }</p>
+      <p style='color:${colors.ia};'>IA: ${ iaScore }</p>
+    </div>
 
-    <button onClick='reset()' >Jugar de Nuevo</button>
+    <button class='btn btn-warning text-white mt-3' onClick='reset()' >Jugar de Nuevo</button>
   `;
 }
 
@@ -230,7 +270,7 @@ const totalScore = ( tresults ) => {
   return tresults.innerHTML = `
     <h2>Humanos: ${ totalPlayerScore }</h2>
     <h2>Máquinas: ${ totalIaScore }</h2>
-    <button onClick='resetTotalScore()'>Reiniciar</button>
+    <button class='my-3 btn btn-light' onClick='resetTotalScore()'>Reiniciar</button>
   `;
 }
 
@@ -256,9 +296,12 @@ const reset = () => {
 }
 
 const resetTotalScore = () => {
+  // Guarda en memoria la caja que muestra los resultados totales
   let totalResults = document.getElementById('total-results');
+  // Resetea los valores del Score global a 0 
   totalPlayerScore = 0;
   totalIaScore = 0;
 
+  // Llama a la función que muestra el resultado total con valores 0
   totalScore( totalResults );
 }
